@@ -86,13 +86,14 @@ def image_average_grayscale(GS_image1:list, GS_image2:list)-> list:
     # WRITE YOUR CODE HERE.
     pixel_values = []
 
-    for list in GS_image1:
-        for list2 in GS_image2:
-            for pixel in list:
-                for pixel2 in list2:
-                    pixel_values.append(math.trunc((pixel + pixel2)/2))
-    image3 = pixel_values 
-    return image3
+    # for list in GS_image1:
+    #     for list2 in GS_image2:
+    #         for pixel in list:
+    #             for pixel2 in list2:
+    #                 #pixel_values.append(math.trunc((pixel + pixel2)/2))
+    #                 print(list)
+    # image3 = pixel_values 
+    return GS_image1
     # END OF FUNCTION.
 
 def flip_horizontal_grayscale(GS_image:list)->list:
@@ -110,6 +111,13 @@ def flip_horizontal_grayscale(GS_image:list)->list:
     """
     # WRITE YOUR CODE HERE.
 
+    # flip the image by horizontally
+    #img = cv2.flip(GS_image.copy(), 1)
+    img = GS_image.copy()
+
+    for r, row in enumerate(img):
+        img[r] = row[::-1]
+    return img
     # END OF FUNCTION.
 
 def histogram_grayscale(GS_image:list)->list:
@@ -123,7 +131,16 @@ def histogram_grayscale(GS_image:list)->list:
 
     """
     # WRITE YOUR CODE HERE.
+    img = GS_image.copy()
+    pixels_dict = {}
+    
+    for r, row in enumerate(img):
+        for c, value in enumerate(row):
+            if value not in pixels_dict:
+                pixels_dict[value] = img.count(value)
 
+    print(pixels_dict)
+    return img
     # END OF FUNCTION.
 
 if __name__ == '__main__':
@@ -135,14 +152,14 @@ if __name__ == '__main__':
    
 
     print(f'Pixel Count: {pixel_count(img)}')
-    print(f'Average Pivel Value: {average_pixel_value(img)}')
+    print(f'Average Pixel Value: {average_pixel_value(img)}')
     #cv2.imwrite("BW.jpg", to_BW(img)) 
     cv2.imshow(f'{image1_location} - to_BW', to_BW(img)) 
     #cv2.imwrite("Averaged.jpg", image_average_grayscale(img, img2)) 
     cv2.imshow(f'{image1_location} v. {image2_location} - average_grayscale', image_average_grayscale(img, img2)) 
     #cv2.imwrite("Flipped.jpg", flip_horizontal_grayscale(img))
-    #cv2.imshow(f'{image1_location} - flip_horizontal_grayscale', flip_horizontal_grayscale(img)) 
-    #print(f'Grayscale Histogram: {histogram_grayscale(img)}')
+    cv2.imshow(f'{image1_location} - flip_horizontal_grayscale', flip_horizontal_grayscale(img)) 
+    print(f'Grayscale Histogram: {histogram_grayscale(img)}')
 
     cv2.waitKey() 
     cv2.destroyAllWindows() 
