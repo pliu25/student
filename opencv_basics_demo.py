@@ -46,11 +46,11 @@ cv2.imshow(f'color image w/out alpha channel: {image_location}', img1)
 cv2.imshow(f'b&w image: {image_location}', img2)  
 cv2.imshow(f'color image w/ alpha channel: {image_location}', img3)  
 
-new_image = img2.copy()
+new_image = img2.copy() #don't want to change pixels of original image 
 
 for r, row in enumerate(img2): #goes through each of the rows 
     for c, value in enumerate(row): #goes through value of row 
-       if value > 128:
+       if value > 128: #based on grayscale
           new_image[r][c] = 255
        else:
           new_image[r][c] = 0
