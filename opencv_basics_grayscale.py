@@ -133,14 +133,20 @@ def histogram_grayscale(GS_image:list)->list:
     # WRITE YOUR CODE HERE.
     img = GS_image.copy()
     pixels_dict = {}
+    pixel_list = []
     
     for r, row in enumerate(img):
         for c, value in enumerate(row):
-            if value not in pixels_dict:
-                pixels_dict[value] = img.count(value)
-
-    print(pixels_dict)
-    return img
+            pixel_list.append(img[r][c])
+    #print(pixel_list)
+    for value in pixel_list:
+        if value not in pixels_dict:
+            pixels_dict[value] = pixel_list.count(value)
+    value_list = sorted(pixels_dict.keys())
+    for value in value_list:
+        value_list[value] = pixels_dict[value_list[value]]
+    #print(value_list)
+    return value_list
     # END OF FUNCTION.
 
 if __name__ == '__main__':
