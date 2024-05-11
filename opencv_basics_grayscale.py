@@ -112,12 +112,8 @@ def image_average_grayscale(GS_image1:list, GS_image2:list)-> list:
 
     for r, row in enumerate(img):
         for c, (value1, value2) in enumerate(zip(row, img2[r])):
-            img[r][c] = math.trunc((value1 + value2)/2)
+            img[r][c] = math.trunc((int(value1) + int(value2))/2)
 
-            
-    # print(img1)
-    # print(img2)
-    print(img[29])
     return img
     # END OF FUNCTION.
 
@@ -168,10 +164,10 @@ def histogram_grayscale(GS_image:list)->list:
         if value not in pixels_dict:
             pixels_dict[value] = pixel_list.count(value)
     value_list = sorted(pixels_dict.keys())
-    print(pixels_dict)
+    #print(pixels_dict)
     for value in range(len(value_list)):
         value_list[value] = pixels_dict[value_list[value]]
-    print(len(value_list))
+    #print(len(value_list))
     return value_list
     # END OF FUNCTION.
 
