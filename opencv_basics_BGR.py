@@ -2,6 +2,7 @@
 OpenCV Basics - BGR Exercises
 '''
 import cv2
+import math 
 
 def pixel_count(BGR_image: list)-> int:
     """ Calculates the total number of pixels in a BGR image.
@@ -13,12 +14,13 @@ def pixel_count(BGR_image: list)-> int:
         int: The number of pixels in a BGR image.
     """
     # WRITE YOUR CODE HERE.
-
+    img = BGR_image.copy()
+    return ((len(img))*(len(img[0])))
     # END OF FUNCTION.
 
 def tint_red(BGR_image:list)->list:
-    """ This function tints a color image red. Given an input image that is BRG color,
-    set the value of all pixels in the red channel to full on (255). 
+    """ This function tints a color image red. Given an input image that is BGR color,
+    set the the red channel value of all pixels to 255 
 
     Args:
         BGR_image (list): A color image represented in a numpy array with 3 channels.
@@ -28,12 +30,19 @@ def tint_red(BGR_image:list)->list:
 
     """
     # WRITE YOUR CODE HERE.
+    img = BGR_image.copy()
+    
+    for r, row in enumerate(img):
+        for c, value in enumerate(row):
+            img[r][c][2] = 255
+    
 
+    return img
     # END OF FUNCTION.
 
 def to_BW(BGR_image: list)-> list:
     """ Converts a BGR image to a black and white image.
-        If the pixel value in the original image is strictly greater than 128, 
+        If the pixel value (defined by (B+G+R)/3) in the original image is strictly greater than 128, 
         set the pixel to 255. Otherwise, set the pixel to 0. 
 
         Notes: 
@@ -47,12 +56,22 @@ def to_BW(BGR_image: list)-> list:
         image (list): The black and white image.
     """
     # WRITE YOUR CODE HERE.
+    img = BGR_image.copy()
+    
+    for r, row in enumerate(img):
+        for c, value in enumerate(row):
+            if math.trunc((int(value[0]) + int(value[1]) + int(value[2]))/3) > 128:
+                img[r][c] = 255
+            else:
+                img[r][c] = 0
+    
 
+    return img
     # END OF FUNCTION.
 
 def to_grayscale(BGR_image: list)-> list:
     """ Converts a BGR image to a grayscale image by taking a uniform average of all 3 
-        color channels: B (1/3), G (1/3) , R(1/3)
+        color channels: (B+G+R)/3
     
         Notes: 
             - Be careful not to modify the original image! 
@@ -64,7 +83,14 @@ def to_grayscale(BGR_image: list)-> list:
         image (list): The grayscale image of 8-bit integers.
     """
     # WRITE YOUR CODE HERE.
+    img = BGR_image.copy()
+    
+    for r, row in enumerate(img):
+        for c, value in enumerate(row):
+            img[r][c] = math.trunc((int(value[0]) + int(value[1]) + int(value[2]))/3)
+    
 
+    return img
     # END OF FUNCTION.
 
 def image_average_BGR(BGR_image1:list, BGR_image2:list)-> list:
@@ -85,7 +111,15 @@ def image_average_BGR(BGR_image1:list, BGR_image2:list)-> list:
 
     """
     # WRITE YOUR CODE HERE.
+    img = BGR_image1.copy()
+    img2 = BGR_image2.copy()
 
+    for r, row in enumerate(img):
+        for c, (value1, value2) in enumerate(zip(row, img2[r])):
+            img[r][c][0] = math.trunc((int(value1[0]) + int(value2[0]))/2)
+            img[r][c][1] = math.trunc((int(value1[1]) + int(value2[1]))/2)
+            img[r][c][2] = math.trunc((int(value1[2]) + int(value2[2]))/2)
+    return img
     # END OF FUNCTION.
 
 def flip_horizontal_BGR(BGR_image:list)->list:
@@ -102,7 +136,11 @@ def flip_horizontal_BGR(BGR_image:list)->list:
 
     """
     # WRITE YOUR CODE HERE.
+    img = BGR_image.copy()
 
+    for r, row in enumerate(img):
+        img[r] = row[::-1]
+    return img
     # END OF FUNCTION.
 
 def histogram_BGR(BGR_image:list)->list:
@@ -117,7 +155,7 @@ def histogram_BGR(BGR_image:list)->list:
         red_list: A list with 256 elements, where the value of the ith element represents the ith Red count
     """
     # WRITE YOUR CODE HERE.
-
+    
     # END OF FUNCTION.
 
 if __name__ == '__main__':
@@ -139,11 +177,10 @@ if __name__ == '__main__':
     cv2.imshow(f'{image1_location} v. {image2_location} - average_BGR', image_average_BGR(img, img2)) 
     #cv2.imwrite("Flipped.jpg", flip_horizontal_BGR(img))
     cv2.imshow(f'{image1_location} - flip_horizontal_BGR', flip_horizontal_BGR(img)) 
-    blue_hist, green_hist, red_hist = histogram_BGR(img)
-    print(f'Blue Histogram: {blue_hist}')
-    print(f'Green Histogram: {blue_hist}')
-    print(f'Red Histogram: {blue_hist}')
+    # blue_hist, green_hist, red_hist = histogram_BGR(img)
+    # print(f'Blue Histogram: {blue_hist}')
+    # print(f'Green Histogram: {blue_hist}')
+    # print(f'Red Histogram: {blue_hist}')
     
     cv2.waitKey() 
     cv2.destroyAllWindows() 
-
