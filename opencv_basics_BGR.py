@@ -155,7 +155,29 @@ def histogram_BGR(BGR_image:list)->list:
         red_list: A list with 256 elements, where the value of the ith element represents the ith Red count
     """
     # WRITE YOUR CODE HERE.
+    img = BGR_image.copy()
+    pixelB_list = []
+    pixelG_list = []
+    pixelR_list = []
+    blue_list = [0] * 256
+    green_list = [0] * 256
+    red_list = [0] * 256
+    for r, row in enumerate(img):
+        for c, value in enumerate(row):
+            pixelB_list.append(img[r][c][0])
+            pixelG_list.append(img[r][c][1])
+            pixelR_list.append(img[r][c][2])
+
+    for value in range(len(blue_list)):
+        blue_list[value] = pixelB_list.count(value)
     
+    for value in range(len(green_list)):
+        green_list[value] = pixelG_list.count(value)
+
+    for value in range(len(red_list)):
+        red_list[value] = pixelR_list.count(value)
+
+    return blue_list, green_list, red_list
     # END OF FUNCTION.
 
 if __name__ == '__main__':
@@ -177,10 +199,10 @@ if __name__ == '__main__':
     cv2.imshow(f'{image1_location} v. {image2_location} - average_BGR', image_average_BGR(img, img2)) 
     #cv2.imwrite("Flipped.jpg", flip_horizontal_BGR(img))
     cv2.imshow(f'{image1_location} - flip_horizontal_BGR', flip_horizontal_BGR(img)) 
-    # blue_hist, green_hist, red_hist = histogram_BGR(img)
-    # print(f'Blue Histogram: {blue_hist}')
-    # print(f'Green Histogram: {blue_hist}')
-    # print(f'Red Histogram: {blue_hist}')
+    blue_hist, green_hist, red_hist = histogram_BGR(img)
+    print(f'Blue Histogram: {blue_hist}')
+    print(f'Green Histogram: {green_hist}')
+    print(f'Red Histogram: {red_hist}')
     
     cv2.waitKey() 
     cv2.destroyAllWindows() 
