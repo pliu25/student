@@ -25,10 +25,10 @@ if __name__ == '__main__':
     y75 = histogram_grayscale(imgmod75)
     y50 = histogram_grayscale(imgmod50)
     
-    plt.plot(x, y, label = "luminosity", color='grey') 
-    plt.plot(x, y95, label = "luminosity", color='grey') 
-    plt.plot(x, y75, label = "luminosity", color='grey') 
-    plt.plot(x, y50, label = "luminosity", color='grey') 
+    plt.plot(x, y, label = "original png", color='grey') 
+    plt.plot(x, y95, label = "jpeg, 95% quality", color='grey') 
+    plt.plot(x, y75, label = "jpeg, 75% quality", color='grey') 
+    plt.plot(x, y50, label = "jpeg, 50% quality", color='grey') 
     plt.legend()
     plt.title("Luminosity -Frequency Analysis", loc='center')
     plt.show()  # display
