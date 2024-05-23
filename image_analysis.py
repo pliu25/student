@@ -1,6 +1,7 @@
 import cv2
 import matplotlib.pyplot as plt
 from opencv_basics_grayscale import histogram_grayscale
+from opencv_basics_BGR import histogram_BGR
 
 if __name__ == '__main__':
     image1_location='cinnamoroll.png'
@@ -9,14 +10,27 @@ if __name__ == '__main__':
     cv2.imwrite('modified95.jpg', img, [int(cv2.IMWRITE_JPEG_QUALITY), 95])
     cv2.imwrite('modified75.jpg', img, [int(cv2.IMWRITE_JPEG_QUALITY), 75])
     cv2.imwrite('modified50.jpg', img, [int(cv2.IMWRITE_JPEG_QUALITY), 50])
+    
     imgmod95 = cv2.imread('modified95.jpg', cv2.IMREAD_GRAYSCALE) 
     imgmod75 = cv2.imread('modified75.jpg', cv2.IMREAD_GRAYSCALE) 
     imgmod50 = cv2.imread('modified50.jpg', cv2.IMREAD_GRAYSCALE) 
+    imgBGR = cv2.imread(image1_location) 
+    cv2.imwrite('modified95BGR.jpg', imgBGR, [int(cv2.IMWRITE_JPEG_QUALITY), 95])
+    cv2.imwrite('modified75BGR.jpg', imgBGR, [int(cv2.IMWRITE_JPEG_QUALITY), 75])
+    cv2.imwrite('modified50BGR.jpg', imgBGR, [int(cv2.IMWRITE_JPEG_QUALITY), 50])
+    imgmod95BGR = cv2.imread('modified95BGR.jpg') 
+    imgmod75BGR = cv2.imread('modified75BGR.jpg') 
+    imgmod50BGR = cv2.imread('modified50BGR.jpg') 
 
     cv2.imshow(f'modified95.jpg', imgmod95)
     cv2.imshow(f'modified75.jpg', imgmod75)
-    cv2.imshow(f'modified70.jpg', imgmod50)
+    cv2.imshow(f'modified50.jpg', imgmod50)
+
+    cv2.imshow(f'modified95BGR.jpg', imgmod95BGR)
+    cv2.imshow(f'modified75BGR.jpg', imgmod75BGR)
+    cv2.imshow(f'modified50BGR.jpg', imgmod50BGR)
     print(f'grayscale Histogram: {histogram_grayscale(img)}')
+    print(f'BGR Histogram: {histogram_BGR(imgBGR)}')
     
     # define data values
     x = range(256) 
@@ -24,13 +38,18 @@ if __name__ == '__main__':
     y95 = histogram_grayscale(imgmod95)
     y75 = histogram_grayscale(imgmod75)
     y50 = histogram_grayscale(imgmod50)
-    
-    plt.plot(x, y, color="070707", label = "original png") 
-    plt.plot(x, y95, color="3E3E3E", label = "jpeg, 95% quality") 
-    plt.plot(x, y75, color="787878", label = "jpeg, 75% quality") 
-    plt.plot(x, y50, color="A6A6A6", label = "jpeg, 50% quality") 
+
+    f1 = plt.figure(1)
+    plt.plot(x, y50, color="#C4C4C4", label = "jpeg, 50% quality") 
+    plt.plot(x, y75, color="#828282", label = "jpeg, 75% quality") 
+    plt.plot(x, y95, color="#505050", label = "jpeg, 95% quality") 
+    plt.plot(x, y, color="#3C3C3C", label = "original png") 
     plt.legend()
     plt.title("Luminosity -Frequency Analysis", loc='center')
+    f2 = plt.figure(2)
+    plt.plot(x, y, color="#3C3C3C", label = "original png") 
+    plt.legend()
+    plt.title("Luminosity and Color-Frequency Analysis", loc='center')
     plt.show()  # display
     cv2.waitKey() 
     cv2.destroyAllWindows() 

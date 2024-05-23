@@ -156,9 +156,6 @@ def histogram_BGR(BGR_image:list)->list:
     """
     # WRITE YOUR CODE HERE.
     img = BGR_image.copy()
-    pixelB_list = []
-    pixelG_list = []
-    pixelR_list = []
     blue_list = [0] * 256
     green_list = [0] * 256
     red_list = [0] * 256
