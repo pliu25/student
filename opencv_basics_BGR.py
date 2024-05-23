@@ -164,18 +164,11 @@ def histogram_BGR(BGR_image:list)->list:
     red_list = [0] * 256
     for r, row in enumerate(img):
         for c, value in enumerate(row):
-            pixelB_list.append(img[r][c][0])
-            pixelG_list.append(img[r][c][1])
-            pixelR_list.append(img[r][c][2])
-
-    for value in range(len(blue_list)):
-        blue_list[value] = pixelB_list.count(value)
+            blue_list[img[r][c][0]]+=1
+            green_list[img[r][c][1]]+=1
+            red_list[img[r][c][2]]+=1
     
-    for value in range(len(green_list)):
-        green_list[value] = pixelG_list.count(value)
-
-    for value in range(len(red_list)):
-        red_list[value] = pixelR_list.count(value)
+    print(blue_list, green_list, red_list)
 
     return blue_list, green_list, red_list
     # END OF FUNCTION.

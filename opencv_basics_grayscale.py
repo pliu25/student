@@ -157,11 +157,8 @@ def histogram_grayscale(GS_image:list)->list:
     value_list = [0] * 256
     for r, row in enumerate(img):
         for c, value in enumerate(row):
-            pixel_list.append(img[r][c])
-
-    for value in range(len(value_list)):
-        value_list[value] = pixel_list.count(value)
-
+            value_list[value]+=1
+    
     return value_list
     # END OF FUNCTION.
 
